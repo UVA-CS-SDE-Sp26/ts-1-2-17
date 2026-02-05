@@ -1,0 +1,135 @@
+----------  ----------    FILE HANDLER DOCUMENTATION    ----------  ----------
+Team Member B: Youssef Youssef (ykj4ka)
+Date Updated: February 4, 2026
+
+
+
+
+
+
+==============================================================================
+OVERVIEW
+==============================================================================
+FileHandler manages all file operations. NO OTHER CODE should access files
+directly - everything goes through this class.
+
+Location: src/main/java/FileHandler.java
+
+
+
+
+
+
+==============================================================================
+PUBLIC API
+==============================================================================
+
+CONSTRUCTORS:
+    FileHandler()                    // Uses default "data" folder
+    FileHandler(String directory)    // Uses custom path
+
+METHODS:
+
+1. List<String> getAvailableFiles()
+   - Returns alphabetically sorted list of filenames
+   - Returns empty list if no files exist
+   - Example: ["filea.txt", "fileb.txt", "filec.txt"]
+
+2. String readFile(String filename) throws IOException
+   - Returns complete file contents as String
+   - Parameter: just filename, NOT full path (e.g., "filea.txt")
+   - Throws IOException if file not found or can't be read
+
+3. String getDataDirectory()
+   - Returns path to data directory (for debugging)
+
+
+
+
+
+
+==============================================================================
+FOR TEAM MEMBER C (Leo) - How to Use
+==============================================================================
+
+SCENARIO 1: No arguments - List files
+    FileHandler handler = new FileHandler();
+    List<String> files = handler.getAvailableFiles();
+
+    for (int i = 0; i < files.size(); i++) {
+        System.out.printf("%02d %s%n", (i + 1), files.get(i));
+    }
+
+SCENARIO 2: File number provided - Display file
+    FileHandler handler = new FileHandler();
+    List<String> files = handler.getAvailableFiles();
+
+    int index = Integer.parseInt(userInput) - 1;  // "01" -> 0
+
+    if (index >= 0 && index < files.size()) {
+        try {
+            String content = handler.readFile(files.get(index));
+            System.out.println(content);
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    } else {
+        System.err.println("Error: Invalid file number");
+    }
+
+IMPORTANT: Always wrap readFile() in try-catch and validate index!
+
+
+
+
+
+
+==============================================================================
+Overall SETUP:
+==============================================================================
+Create "data" folder in project root and place .txt files there:
+    SDE_HW2/
+    ├── data/
+    │   ├── filea.txt
+    │   └── fileb.txt
+    └── src/
+        ├── Docs
+        │     └── FileHandler.txt
+        │── main
+        │     └── java
+        │           └── FileHandler.java
+        └── test
+              └── java
+                    └── FileHandlerTest.java
+
+
+
+
+
+
+==============================================================================
+TESTING:
+==============================================================================
+All tests passing in FileHandlerTest.java
+Run with: ./gradlew test
+
+
+
+
+
+
+==============================================================================
+## Quick Message to Teammates:
+==============================================================================
+Hi Guys!
+
+FileHandler is done - all tests passing!
+
+Leo (Team Member C): You'll use two methods:
+1) "getAvailableFiles()" --> returns list of filenames
+2) "readFile(filename)"  --> returns file contents (throws IOException)
+
+Fal (Team Member A): I think you don't call my code directly --> just pass args to Leo.
+
+Full examples are above in docs/filehandler.txt
+==============================================================================
