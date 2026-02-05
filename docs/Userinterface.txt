@@ -1,1 +1,33 @@
+TopSecret is a command-line utility that will allow users to view file contents from a large library of mission data.
+The program will list existing files and be able to dispay individual file contents when specified.
+
+The program will run through the use of the command: java topsecret
+1. If the program runs with no specified file (no argument), all available files will be listed in order
+Example:  java topsecret
+
+          01 filea.txt
+          02 fileb.txt
+          03 filec.txt
+2. If the program runs with a specified file (argument), the file contents will be displayed on the screen
+Example:
+          java topsecret 01
+
+          (the contents of the file filea.txt)
+
+Exit Conditions:
+The program exits after showing the file list, the contents of an indicated file, or after displaying an error message.
+
+Error Handling:
+The program will output error messages and exit when an invalid file number is provided, a file cannot be
+found, or the command/input itself is invalid 
+
+Expected User Interactions: 
+User runs program without arguments to see available files, 
+user specifies a file number to view the file's contents and then the program exits,
+any invalid inputs will be communicated to the user and the program will exit.
+
+
+
+
+
 
