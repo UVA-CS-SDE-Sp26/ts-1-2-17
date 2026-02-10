@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * Commmand Line Utility
+ * Command Line Utility
  */
 public class TopSecret {
     private static FileHandler fileHandler = new FileHandler();
