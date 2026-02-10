@@ -4,6 +4,11 @@ Leonardo Valli, Fal Elgizouli, Youssef Youssef
 
 This program entry point will be the TopSecret class.
 
+To run, enter ts-1-2-17 directory, and type the following into the terminal:
+javac -d out src/main/java/*.java
+java -cp out TopSecret
+
+
 This program takes up to two arguments:
 (describe the arguments)
 
