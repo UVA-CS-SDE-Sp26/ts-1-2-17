@@ -12,11 +12,11 @@ public class TopSecret {
         if(args.length == 0){
             List<String> fileNames = fileHandler.getAvailableFiles();
             for(int i = 0; i < fileNames.size(); i++){
-                if(i<10){
-                    System.out.println("0"+i+" "+fileNames.get(i));//if the file index is a single digit number, add a zero to the front
+                if(i<9){
+                    System.out.println("0"+(i+1)+" "+fileNames.get(i));//if the file index is a single digit number, add a zero to the front
                 }
                 else{
-                    System.out.println(i+ " "+ fileNames.get(i));
+                    System.out.println((i+1)+ " "+ fileNames.get(i));
                 }
             }
         }
