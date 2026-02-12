@@ -42,12 +42,12 @@ public class TopSecret {
 
                 List<String> fileNames = fileHandler.getAvailableFiles();
 
-                if (index < 0 || index >= fileNames.size()) {
+                if (index < 1 || index > fileNames.size()) {
                     System.out.println("Error: File number out of range");
                     return;
                 }
 
-                fileName = fileNames.get(index);
+                fileName = fileNames.get(index-1);
 
                 try {
                     System.out.println(fileHandler.readFile(fileName));
