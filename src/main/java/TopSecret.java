@@ -61,20 +61,9 @@ public class TopSecret {
         }
 
 
-    public static FileHandler getFileHandler() {
-        return fileHandler;
-    }
-
-    public static void setFileHandler(FileHandler fileHandler) {
-        TopSecret.fileHandler = fileHandler;
-    }
-
     public static String getFileName() {
         return fileName;
     }
 
-    public static void setFileName(String fileName) {
-        TopSecret.fileName = fileName;
-    }
 
 }
