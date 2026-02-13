@@ -20,49 +20,41 @@ public class TopSecret {
                 }
             }
         } else {
-                if (args.length < 1) {
-                    System.out.println("Error: Invalid command");
-                    return;
-                }
+            if (args[0].isEmpty()) {//if file number is an empty string, throw exception
+                throw new IllegalArgumentException("Error: Invalid command");
+            }
 
-                String input = args[0];
-                int index = 0;
-
-                for (int i = 0; i < input.length(); i++) {
-                    char c = input.charAt(i);
-
-                    if (c < '0' || c > '9') {
-                        System.out.println("Error: File number must be numeric");
-                        return;
-                    }
-
-                    index = index * 10 + (c - '0');
-                }
-
-
-                List<String> fileNames = fileHandler.getAvailableFiles();
-
-                if (index < 1 || index > fileNames.size()) {
-                    System.out.println("Error: File number out of range");
-                    return;
-                }
-
-                fileName = fileNames.get(index-1);
-
-                try {
-                    System.out.println(fileHandler.readFile(fileName));
-                } catch (Exception e) {
-                    System.out.println("Error: File not found or cannot be read");
-                }
+            String input = args[0];
+            int index;
+            try {
+                index = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Error: File number must be numeric", e);
             }
 
 
+            List<String> fileNames = fileHandler.getAvailableFiles();
 
+            if (index < 1 || index > fileNames.size()) {
+                throw new IllegalArgumentException("Error: File number out of range");
+            }
+
+            fileName = fileNames.get(index-1);
+
+            try {
+                System.out.println(fileHandler.readFile(fileName));
+            } catch (Exception e) {
+                throw new RuntimeException("Error: File not found or cannot be read", e);
+            }
         }
+    }
 
 
     public static String getFileName() {
         return fileName;
+    }
+    public static void setFileHandler(FileHandler fileHandler) {
+        TopSecret.fileHandler = fileHandler;
     }
 
 
