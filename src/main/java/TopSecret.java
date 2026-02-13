@@ -35,7 +35,7 @@ public class TopSecret {
                 throw new IllegalArgumentException("Error: File number out of range");
             }
 
-            fileName = fileNames.get(index-1);
+            fileName = fileNames.get(index - 1);
 
             try {
                 System.out.println(fileHandler.readFile(fileName));
@@ -45,13 +45,13 @@ public class TopSecret {
         }
     }
 
-
     public static String getFileName() {
         return fileName;
     }
     public static void setFileHandler(FileHandler fileHandler) {
         TopSecret.fileHandler = fileHandler;
     }
+
 
 
 }

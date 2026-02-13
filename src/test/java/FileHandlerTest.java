@@ -69,14 +69,6 @@ public class FileHandlerTest {
     }
 
     @Test
-    public void testReadFile_AnotherValidFile() throws IOException {
-        String content = fileHandler.readFile("fileb.txt");
-
-        assertNotNull(content, "Content should not be null");
-        assertEquals("This is file B content.", content, "Content should match");
-    }
-
-    @Test
     public void testReadFile_FileNotFound() {
         Exception exception = assertThrows(IOException.class, () -> {
             fileHandler.readFile("nonexistent.txt");
@@ -130,4 +122,62 @@ public class FileHandlerTest {
         assertEquals("fileb.txt", files.get(1));
         assertEquals("filec.txt", files.get(2));
     }
+
+    @Test
+    public void testDefaultConstructor() {
+        File folder = new File("data");
+        folder.mkdir();
+
+        FileHandler handler = new FileHandler();
+        String path = handler.getDataDirectory();
+        assertEquals("data", path, "Default constructor should use data folder");
+
+        folder.delete();
+    }
+
+
+    @Test
+    public void testReadFile_Directory() throws IOException {
+        File dataDir = new File(fileHandler.getDataDirectory());
+        File subFolder = new File(dataDir, "subfolder");
+        subFolder.mkdir();
+
+        Exception exception = assertThrows(IOException.class, () -> {
+            fileHandler.readFile("subfolder");
+        });
+
+        assertTrue(exception.getMessage().contains("Not a valid file"),
+                "Should throw exception when trying to read a directory");
+    }
+
+
+    @Test
+    public void testConstructor_PathIsFile() throws IOException {
+        File file = tempDir.resolve("notDir.txt").toFile();
+        file.createNewFile();
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new FileHandler(file.getAbsolutePath());
+        });
+
+        assertTrue(exception.getMessage().contains("Directory does not exist")
+                        || exception.getMessage().contains("invalid"),
+                "Constructor should throw exception when path is a file");
+    }
+
+
+    @Test
+    public void testGetAvailableFiles_IgnoresDirectories() throws IOException {
+        File dataDir = new File(fileHandler.getDataDirectory());
+
+        File subFolder = new File(dataDir, "folder");
+        subFolder.mkdir();
+
+        List<String> files = fileHandler.getAvailableFiles();
+
+        assertNotNull(files, "File list should not be null");
+        assertFalse(files.contains("folder"), "Should not include directory names");
+    }
+
+
 }

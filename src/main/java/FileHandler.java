@@ -37,26 +37,21 @@ public class FileHandler {
      */
     public List<String> getAvailableFiles() {
         File folder = new File(dataDirectory);
-        String[] fileNames = folder.list();
 
-        if (fileNames == null) {
-            return new ArrayList<>();
-        }
-
-        // Filter out directories, only include files
+        File[] fileList = folder.listFiles();
         List<String> files = new ArrayList<>();
-        for (String name : fileNames) {
-            File file = new File(folder, name);
+
+        for (File file : fileList) {
             if (file.isFile()) {
-                files.add(name);
+                files.add(file.getName());
             }
         }
 
-        // Sort alphabetically
         Collections.sort(files);
-
         return files;
     }
+
+
 
     /**
      * Read the contents of a specific file
