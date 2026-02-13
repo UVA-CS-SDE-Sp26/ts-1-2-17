@@ -20,10 +20,6 @@ public class TopSecret {
                 }
             }
         } else {
-            if (args[0].isEmpty()) {//if file number is an empty string, throw exception
-                throw new IllegalArgumentException("Error: Invalid command");
-            }
-
             String input = args[0];
             int index;
             try {
