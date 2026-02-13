@@ -6,7 +6,7 @@ We wrote two classes for this program: TopSecret and FileHandler.
 
 
 TESTS FOR FILEHANDLER
-FileHandler does not depend on TopSecret, so minimal Mockito will be used.
+FileHandler does not depend on TopSecret, so no Mockito will be used. A way to eliminate FileHandlerTest's dependence on our data folder is described below.
 
 We will run tests using a temporary directory that will be filled with 3 test files that will be generated before every test (filea.txt, fileb.txt, filec.txt)
 This makes it so that the FileHandler tests don't depend on what is in our data directory at the time of the test
