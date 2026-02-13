@@ -1,18 +1,40 @@
 PLANS FOR PROGRAM TESTING
-2/5/26
+2/13/26
 Leonardo Valli
 
-Since our entire program for this assignment will live inside TopSecret.java,
-we will write JUnit tests for specifically that class
+We wrote two classes for this program: TopSecret and FileHandler.
 
-There are two things we can test for in TopSecret.java:
-- after instantiation of a TopSecret object, the fileName field should be set to the right name,
-corresponding with the file number that the user provided as a command line argument
-    - Testing for this will simply involve a few JUnit methods that instantiate TopSecret objects,
-    and assertEquals() to compare the fileName field to what we expect it to be
-        - Test with file number 0, 1, and a two invalid file numbers (index out of bounds),
-        one too large and one too small (negative)
-- We can also test the TopSecret method that takes in a fileName and returns the contents of that file
-    - this can also be done with assertEquals()
-        - test returning the contents of an empty file, a 1 line file, and a multi-line file
-            - method must preserve white-space (returns)
+
+TESTS FOR FILEHANDLER
+FileHandler does not depend on TopSecret, so minimal Mockito will be used.
+
+We will run tests using a temporary directory that will be filled with 3 test files that will be generated before every test (filea.txt, fileb.txt, filec.txt)
+This makes it so that the FileHandler tests don't depend on what is in our data directory at the time of the test
+
+getAvailableFiles() --> should return a list containing "filea.txt", "fileb.txt", "filec.txt", sorted alphabetically
+getAvailableFiles() on empty directory --> empty list
+reading from filea, b, or c should return the proper file contents
+trying to read a nonexistent file should throw an exception
+reading from an empty file --> ""
+reading from a multiline file --> should return proper contents with white space and newlines maintained
+we should not be able to instantiate a FileHandler on an invalid directory path
+
+
+
+
+TESTS FOR TOPSECRET
+TopSecret depends on FileHandler, so we will mock a fileHandler object to use for all our tests. The default behavior of this mock object will be
+to return a list of ten files named firstfile.txt, secondfile.txt... whenever getAvailableFiles() is called. This removes the dependency on the performance of FileHandler's methods.
+
+TopSecret has only one method to be tested---main. The following tests will make sure that main runs properly with varying args passed to it, including thrown exceptions for invalid args
+
+no args --> prints the correct list of ten files from our mock FileHandler. 01 firstfile.txt\n02 secondfile.txt, and so on
+01 --> fileName field set to "firstfile.txt"
+1 cipherkey --> fileName field set to "firstfile.txt"
+10 --> fileName field set to "tenthfile.txt"
+0010 cipherkey --> fileName field set to "tenthfile.txt"
+123abc --> exception thrown, nonnumeric input
+-1 --> exception thrown, arg below lower bound
+14 --> exception thrown, arg above upper bound
+"" --> exception thrown, nonnumeric input
+If FileHandler throws an exception for an invalid fileName, TopSecret throws an exception as well

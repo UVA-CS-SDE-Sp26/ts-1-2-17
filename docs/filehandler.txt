@@ -93,14 +93,16 @@ Create "data" folder in project root and place .txt files there:
     │   ├── filea.txt
     │   └── fileb.txt
     └── src/
-        ├── Docs
-        │     └── FileHandler.txt
+        ├── docs
+        │     └── fileHandler.txt
         │── main
         │     └── java
-        │           └── FileHandler.java
+        │           ├── FileHandler.java
+        │           └── TopSecret.java
         └── test
               └── java
-                    └── FileHandlerTest.java
+                    ├── FileHandlerTest.java
+                    └── TopSecretTest.java
 
 
 
