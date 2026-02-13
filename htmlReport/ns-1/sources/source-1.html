@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FileHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: FileHandler (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FileHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (10/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.nio.file.Paths;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class FileHandler {
+&nbsp;
+&nbsp;    private final String dataDirectory;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for FileHandler
+&nbsp;     * @param dataDirectory Path to the directory containing data files
+&nbsp;     * @throws IllegalArgumentException if directory does not exist
+&nbsp;     */
+<b class="fc">&nbsp;    public FileHandler(String dataDirectory) {</b>
+<b class="fc">&nbsp;        File dir = new File(dataDirectory);</b>
+<b class="pc">&nbsp;        if (!dir.exists() || !dir.isDirectory()) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Directory does not exist or is invalid: &quot; + dataDirectory);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.dataDirectory = dataDirectory;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Default constructor - uses &quot;data&quot; folder in current directory
+&nbsp;     */
+&nbsp;    public FileHandler() {
+<b class="fc">&nbsp;        this(&quot;data&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get list of all available files in the data directory
+&nbsp;     * @return List of filenames (sorted alphabetically)
+&nbsp;     */
+&nbsp;    public List&lt;String&gt; getAvailableFiles() {
+<b class="fc">&nbsp;        File folder = new File(dataDirectory);</b>
+&nbsp;
+<b class="fc">&nbsp;        File[] fileList = folder.listFiles();</b>
+<b class="fc">&nbsp;        List&lt;String&gt; files = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (File file : fileList) {</b>
+<b class="pc">&nbsp;            if (file.isFile()) {</b>
+<b class="fc">&nbsp;                files.add(file.getName());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Collections.sort(files);</b>
+<b class="fc">&nbsp;        return files;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Read the contents of a specific file
+&nbsp;     * @param filename Name of the file to read
+&nbsp;     * @return Contents of the file as a string
+&nbsp;     * @throws IOException if file cannot be read or does not exist
+&nbsp;     */
+&nbsp;    public String readFile(String filename) throws IOException {
+<b class="fc">&nbsp;        Path filePath = Paths.get(dataDirectory, filename);</b>
+<b class="fc">&nbsp;        File file = filePath.toFile();</b>
+&nbsp;
+<b class="fc">&nbsp;        if (!file.exists()) {</b>
+<b class="fc">&nbsp;            throw new IOException(&quot;File not found: &quot; + filename);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (!file.isFile()) {</b>
+<b class="fc">&nbsp;            throw new IOException(&quot;Not a valid file: &quot; + filename);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Read all content and return as string
+<b class="fc">&nbsp;        return Files.readString(filePath);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the data directory path
+&nbsp;     * @return Path to data directory
+&nbsp;     */
+&nbsp;    public String getDataDirectory() {
+<b class="fc">&nbsp;        return dataDirectory;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-02-13 01:51</div>
+</div>
+</body>
+</html>

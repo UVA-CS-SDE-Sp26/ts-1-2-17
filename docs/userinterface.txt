@@ -1,18 +1,30 @@
 TopSecret is a command-line utility that will allow users to view file contents from a large library of mission data.
 The program will list existing files and be able to display individual file contents when specified.
 
-The program will run through the use of the command: java topsecret
-1. If the program runs with no specified file (no argument), all available files will be listed in order
-Example:  java topsecret
+The program will run through the use of the command: java TopSecret
+
+Before running the program, build the project using:
+./gradlew build
+
+The program is run using the command (Syntax):
+java -cp build/classes/java/main TopSecret [fileNumber] [optionalKey]
+
+
+1. If the program runs with no specified file (no argument), all available files will be listed in order.
+Example:
+java -cp build/classes/java/main TopSecret
 
           01 filea.txt
           02 fileb.txt
           03 filec.txt
-2. If the program runs with a specified file (argument), the file contents will be displayed on the screen
+
+
+2. If the program runs with a specified file number (argument), the file contents will be displayed on the screen.
 Example:
-          java topsecret 01
+java -cp build/classes/java/main TopSecret 01
 
           (the contents of the file filea.txt)
+
 
 Exit Conditions:
 The program exits after showing the file list, the contents of an indicated file, or after displaying an error message.

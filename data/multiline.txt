@@ -1,6 +1,3 @@
-this is a multi
-line text file
-
-
-
-as another test case
+Line 1
+Line 2
+Line 3
